@@ -1,0 +1,49 @@
+﻿@model LeaveManagementSystem.ViewModel.RegisterViewModel
+@{
+    ViewBag.Title = "Register";
+    Layout = "~/Views/Shared/_LayoutPage1.cshtml";
+}
+
+<div class="row">
+    <div class="col-sm-12">
+        <h1>Registration</h1>
+        <form action="/account/register" method="post">
+            @Html.AntiForgeryToken()
+            <div class="form-row">
+                <div class="form-group col-sm-12">
+                    <label for="txtName">Name</label>
+                    <input type="text" class="form-control" id="txtName" placeholder="Enter name" name="Name" pattern="^[a-zA-Z ]*$" autofocus="autofocus" />
+                    @Html.ValidationMessageFor(temp => temp.Name)
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group col-sm-6">
+                    <label for="txtEmail">Email</label>
+                    <input type="email" class="form-control" id="txtEmail" placeholder="Email" name="Email" />
+                    @Html.ValidationMessageFor(temp => temp.Email)
+                </div>                
+                <div class="form-group col-sm-6">
+                    <label for="txtMobile">Mobile</label>
+                    <input type="text" class="form-control" id="txtMobile" placeholder="Mobile" name="Phone"  pattern="^[789]\d{9}$" />
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group col-sm-6">
+                    <label for="txtPassword">Password</label>
+                    <input type="password" class="form-control" id="txtPassword" placeholder="Password" name="Password" minlength="6" oninput="form.ConfirmPassword.pattern = escapeRegExp(this.value)" />
+                    @Html.ValidationMessageFor(temp => temp.Password)
+                </div>
+                <div class="form-group col-sm-6">
+                    <label for="txtPassword">Confirm Password</label>
+                    <input type="password" class="form-control" id="txtConfirmPassword" placeholder="Confirm Password" name="ConfirmPassword" />
+                    @Html.ValidationMessageFor(temp => temp.ConfirmPassword)
+                </div>
+            </div>
+            @Html.ValidationSummary()
+            <button type="submit" class="btn btn-primary">Register</button>
+        </form>
+    </div>
+</div>
+
