@@ -28,6 +28,14 @@ namespace LeaveManagementSystem.Controllers
         {
             if (ModelState.IsValid)
             {
+                if (Request.Files.Count >= 1)
+                {
+                    var file = Request.Files[0];
+                    var imgBytes = new Byte[file.ContentLength];
+                    file.InputStream.Read(imgBytes, 0, file.ContentLength);
+                    var base64String = Convert.ToBase64String(imgBytes, 0, imgBytes.Length);
+                    rvm.UserImg = base64String;
+                }
                 int? id = this.es.InsertEmployee(rvm);
                 if (id!=null)
                     return Content("<script language='javascript' type='text/javascript'>alert('Employee Created');</script>");

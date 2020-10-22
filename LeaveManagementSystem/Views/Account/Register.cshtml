@@ -7,7 +7,7 @@
 <div class="row">
     <div class="col-sm-12">
         <h1>Registration</h1>
-        <form action="/account/register" method="post">
+        <form action="/account/register" method="post" enctype="multipart/form-data">
             @Html.AntiForgeryToken()
             <div class="form-row">
                 <div class="form-group col-sm-12">
@@ -39,6 +39,10 @@
                     <label for="txtPassword">Confirm Password</label>
                     <input type="password" class="form-control" id="txtConfirmPassword" placeholder="Confirm Password" name="ConfirmPassword" />
                     @Html.ValidationMessageFor(temp => temp.ConfirmPassword)
+                </div>
+                <div class="form-group">
+                    <label for="Image">User Image</label>
+                    @{Html.RenderPartial("UserImgUpload"); }
                 </div>
             </div>
             @Html.ValidationSummary()
