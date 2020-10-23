@@ -21,7 +21,6 @@ namespace LeaveManagementSystem.ServiceLayer
        
         void DeleteEmployee(int empId);
         List<EmployeeViewModel> GetEmployee();
-        EmployeeViewModel GetEmployeeByEmailAndPassword(string Email, string Password);
         EmployeeViewModel GetEmployeeByEmail(string Email);
         EmployeeViewModel GetEmployeeByID(int EmpID);
     }
@@ -55,11 +54,6 @@ namespace LeaveManagementSystem.ServiceLayer
             if (e != null)
                 evm = new EmployeeViewModel() { EmployeeID = e.EmployeeID, Name = e.EmployeeName, Address = e.Address, DOB = e.DateOfBirth, Phone = e.Phone ,Email = user.Email };
             return evm;
-        }
-
-        public EmployeeViewModel GetEmployeeByEmailAndPassword(string Email, string Password)
-        {
-            throw new NotImplementedException();
         }
 
         public EmployeeViewModel GetEmployeeByID(int EmpID)

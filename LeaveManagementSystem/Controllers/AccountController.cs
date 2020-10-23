@@ -1,10 +1,13 @@
 ﻿using LeaveManagementSystem.DomainModel.Identity;
 using LeaveManagementSystem.ServiceLayer;
 using LeaveManagementSystem.ViewModel;
+using Microsoft.AspNet.Identity;
+using Microsoft.Owin.Security;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Web.Helpers;
 using System.Web.Mvc;
 
 namespace LeaveManagementSystem.Controllers
@@ -66,6 +69,35 @@ namespace LeaveManagementSystem.Controllers
             {
                 ModelState.AddModelError("x", "Invalid data");
                 return View(uevm);
+            }
+        }
+        public ActionResult Login()
+        {
+            return View();
+        }
+
+        // POST: Account/Login
+        [HttpPost]
+        public ActionResult Login(LoginViewModel lvm)
+        {
+            //login
+            var appDbContext = new ApplicationDbContext();
+            var userStore = new ApplicationUserStore(appDbContext);
+            var userManager = new ApplicationUserManager(userStore);
+            var user = userManager.FindByEmail(lvm.Email);
+            var checkPassword = userManager.CheckPassword(user, lvm.Password);
+            if (checkPassword)
+            {
+                //login
+                var authenticationManager = HttpContext.GetOwinContext().Authentication;
+                var userIdentity = userManager.CreateIdentity(user, DefaultAuthenticationTypes.ApplicationCookie);
+                authenticationManager.SignIn(new AuthenticationProperties(), userIdentity);
+                return RedirectToAction("Index", "Home");
+            }
+            else
+            {
+                ModelState.AddModelError("myerror", "Invalid username or password");
+                return View();
             }
         }
     }
