@@ -92,13 +92,51 @@ namespace LeaveManagementSystem.Controllers
                 var authenticationManager = HttpContext.GetOwinContext().Authentication;
                 var userIdentity = userManager.CreateIdentity(user, DefaultAuthenticationTypes.ApplicationCookie);
                 authenticationManager.SignIn(new AuthenticationProperties(), userIdentity);
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("MyProfile", "Account");
             }
             else
             {
                 ModelState.AddModelError("myerror", "Invalid username or password");
                 return View();
             }
+        }
+        public ActionResult MyProfile()
+        {
+            var appDbContext = new ApplicationDbContext();
+            var userStore = new ApplicationUserStore(appDbContext);
+            var userManager = new ApplicationUserManager(userStore);
+            var user = userManager.FindById(User.Identity.GetUserId());
+            int EmpId = user.EmpID;
+            EmployeeViewModel evm = this.es.GetEmployeeByID(EmpId);
+            return View(evm);
+        }
+        public ActionResult Delete(int id)
+        {
+            this.es.DeleteEmployee(id);
+            return Content("<script language='javascript' type='text/javascript'>alert('Employee Deleted');</script>");
+        }
+        [HttpPost]
+        public ActionResult UpdateImage(UpdateImageViewModel uivm)
+        {
+            if (ModelState.IsValid)
+            {
+                if (Request.Files.Count >= 1)
+                {
+                    var file = Request.Files[0];
+                    var imgBytes = new Byte[file.ContentLength];
+                    file.InputStream.Read(imgBytes, 0, file.ContentLength);
+                    var base64String = Convert.ToBase64String(imgBytes, 0, imgBytes.Length);
+                    uivm.UserImg = base64String;
+                }
+                this.es.UpdateEmployeeImage(uivm);
+                return RedirectToAction("MyProfile", "Account");
+            }
+            else
+            {
+                ModelState.AddModelError("x", "Invalid data");
+                return View(uivm);
+            }
+
         }
     }
 }

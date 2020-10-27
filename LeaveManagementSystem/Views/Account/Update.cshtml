@@ -5,49 +5,50 @@
     Layout = "~/Views/Shared/_LayoutPage1.cshtml";
 }
 
-<div class="row">
-    <div class="col-sm-12">
-        <h1>Update</h1>
-        <form action="/account/update" method="post">
-            @Html.AntiForgeryToken()
-            <div class="form-row">
-                <div class="form-group col-sm-12">
-                    <label for="txtName">Name</label>
-                    <input type="hidden" class="form-control" name="EmployeeId" value="@Model.EmployeeId" />
-                    <input type="text" class="form-control" id="txtName" placeholder="Enter name" name="Name" pattern="^[a-zA-Z ]*$" autofocus="autofocus" value="@Model.Name" />
-                    @Html.ValidationMessageFor(temp => temp.Name)
+<div class="my-5">
+    <div class="row justify-content-center align-items-center">
+        <div class="card col-sm-6">
+            <h1 class="card-title text-center mt-4">Edit Profile</h1>
+            <div class="card-body">
+                <form action="/account/update" method="post">
+                    @Html.AntiForgeryToken()  
+                        <div class="form-group mr-3">
+                            <label for="txtName">Name</label>
+                            <input type="hidden" class="form-control" name="EmployeeId" value="@Model.EmployeeId" />
+                            <input type="text" class="form-control" id="txtName" placeholder="Enter name" name="Name" pattern="^[a-zA-Z ]*$" autofocus="autofocus" value="@Model.Name" />
+                            @Html.ValidationMessageFor(temp => temp.Name)
+                        </div >      
+                        <div class="form-group mr-3">
+                            <label for="txtEmail">Email</label>
+                            <input type="email" class="form-control" id="txtEmail" placeholder="Email" name="Email" value="@Model.Email" readonly />
+                            @Html.ValidationMessageFor(temp => temp.Email)
+                        </div>                       
+                        <div class="form-row">
+                            <div class="form-group col-sm-6">
+                                <label for="txtDateOfBirth">Date Of Birth</label>
+                                <input type="date" class="form-control" id="txtDOB" placeholder="Date of Birth" name="DOB" value="@Model.DOB.Value.ToString("yyyy-MM-dd")" />
+                                @Html.ValidationMessageFor(temp => temp.DOB)
+                            </div>
+                            <div class="form-group col-sm-6">
+                                <label for="txtMobile">Mobile</label>
+                                <input type="text" class="form-control" id="txtMobile" placeholder="Mobile" name="Phone" pattern="^[789]\d{9}$" value="@Model.Phone" />
+                                @Html.ValidationMessageFor(temp => temp.Phone)
+                            </div>
+                        </div>
+                            <div class="form-group mr-3">
+                                <label for="txtAddress">Address</label>
+                                <textarea class="form-control" id="txtAddress" placeholder="Address" name="Address">@Model.Address</textarea>
+                                @Html.ValidationMessageFor(temp => temp.Address)
+                            </div>
+                    @Html.ValidationSummary()
+                <div class="form-row justify-content-center align-items-center">
+                    <div class="form-group ">
+                        <button type="submit" class="btn btn-primary align-items-center mt-4">Update</button>
+                    </div>
                 </div>
+                </form>
             </div>
-
-            <div class="form-row">
-                <div class="form-group col-sm-6">
-                    <label for="txtEmail">Email</label>
-                    <input type="email" class="form-control" id="txtEmail" placeholder="Email" name="Email" value="@Model.Email" readonly />
-                    @Html.ValidationMessageFor(temp => temp.Email)
-                </div>
-                <div class="form-group col-sm-6">
-                    <label for="txtMobile">Mobile</label>
-                    <input type="text" class="form-control" id="txtMobile" placeholder="Mobile" name="Phone" pattern="^[789]\d{9}$" value="@Model.Phone" />
-                    @Html.ValidationMessageFor(temp => temp.Phone)
-                </div>
-            </div>
-
-            <div class="form-row">
-                <div class="form-group col-sm-6">
-                    <label for="txtDateOfBirth">Date Of Birth</label>
-                    <input type="date" class="form-control" id="txtDOB" placeholder="Date of Birth" name="DOB" value="@Model.DOB.Value.ToString("yyyy-MM-dd")" />
-                    @Html.ValidationMessageFor(temp => temp.DOB)
-                </div>
-
-                <div class="form-group col-sm-6">
-                    <label for="txtAddress">Address</label>
-                    <input type="text" class="form-control" id="txtAddress" placeholder="Address" name="Address" value="@Model.Address" />
-                    @Html.ValidationMessageFor(temp => temp.Address)
-                </div>
-            </div>
-            @Html.ValidationSummary()
-            <button type="submit" class="btn btn-primary">Update</button>
-        </form>
+        </div>
     </div>
 </div>
 

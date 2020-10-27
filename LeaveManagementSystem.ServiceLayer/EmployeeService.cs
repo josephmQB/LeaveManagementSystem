@@ -23,6 +23,7 @@ namespace LeaveManagementSystem.ServiceLayer
         List<EmployeeViewModel> GetEmployee();
         EmployeeViewModel GetEmployeeByEmail(string Email);
         EmployeeViewModel GetEmployeeByID(int EmpID);
+        void UpdateEmployeeImage(UpdateImageViewModel uivm);
     }
     public class EmployeeService : IEmployeeService
     {
@@ -34,7 +35,12 @@ namespace LeaveManagementSystem.ServiceLayer
 
         public void DeleteEmployee(int empId)
         {
-            throw new NotImplementedException();
+            var appDbContext = new ApplicationDbContext();
+            var userStore = new ApplicationUserStore(appDbContext);
+            var userManager = new ApplicationUserManager(userStore);
+            ApplicationUser user = appDbContext.Users.Where(temp => temp.EmpID == empId).FirstOrDefault();
+            var value = userManager.Delete(user);
+            this.er.DeleteEmployee(empId);
         }
 
         public List<EmployeeViewModel> GetEmployee()
@@ -47,7 +53,7 @@ namespace LeaveManagementSystem.ServiceLayer
             var appDbContext = new ApplicationDbContext();
             var userStore = new ApplicationUserStore(appDbContext);
             var userManager = new ApplicationUserManager(userStore);
-            ApplicationUser user = appDbContext.Users.Where(temp => temp.Email == Email).FirstOrDefault();
+            var user = userManager.FindByEmail(Email);
             Employee e = new Employee();
             e = er.GetEmployeeById(user.EmpID);
             EmployeeViewModel evm = null;
@@ -66,7 +72,7 @@ namespace LeaveManagementSystem.ServiceLayer
             ApplicationUser user = appDbContext.Users.Where(temp => temp.EmpID == EmpID).FirstOrDefault();
             EmployeeViewModel evm = null;
             if(e!=null)
-                evm = new EmployeeViewModel() { EmployeeID = e.EmployeeID, Name = e.EmployeeName, Address = e.Address, DOB = e.DateOfBirth, Phone = e.Phone , Email = user.Email };
+                evm = new EmployeeViewModel() { EmployeeID = e.EmployeeID, Name = e.EmployeeName, Address = e.Address, DOB = e.DateOfBirth, Phone = e.Phone , Email = user.Email ,UserImg = e.UserImg};
             return evm;
         }
 
@@ -75,6 +81,7 @@ namespace LeaveManagementSystem.ServiceLayer
             Employee e = new Employee();
             e.EmployeeName = rvm.Name;
             e.Phone = rvm.Phone;
+            e.UserImg = rvm.UserImg;
             er.InsertEmployee(e);
             int? empId = er.GetLastestEmployeeId();
 
@@ -108,6 +115,13 @@ namespace LeaveManagementSystem.ServiceLayer
             e.Address = uevm.Address;
             e.Phone = uevm.Phone;
             er.UpdateEmpolyeeDetails(e);
+        }
+        public void UpdateEmployeeImage(UpdateImageViewModel uivm)
+        {
+            Employee e = new Employee();
+            e.EmployeeID = uivm.EmployeeId;
+            e.UserImg = uivm.UserImg;
+            er.UpdateEmpolyeeImage(e);
         }
     }
 }

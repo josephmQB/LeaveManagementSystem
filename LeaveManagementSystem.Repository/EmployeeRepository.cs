@@ -15,6 +15,7 @@ namespace LeaveManagementSystem.Repository
         List<Employee> GetEmployees();
         Employee GetEmployeeById(int EmpID);
         int GetLastestEmployeeId();
+        void UpdateEmpolyeeImage(Employee e);
     }
     public class EmployeeRepository : IEmployeeRepository
     {
@@ -60,12 +61,21 @@ namespace LeaveManagementSystem.Repository
         public void UpdateEmpolyeeDetails(Employee e)
         {
             Employee emp = db.Employees.Where(temp => temp.EmployeeID == e.EmployeeID).FirstOrDefault();
-            if(emp != null)
+            if (emp != null)
             {
                 emp.EmployeeName = e.EmployeeName;
                 emp.DateOfBirth = e.DateOfBirth;
                 emp.Address = e.Address;
                 emp.Phone = e.Phone;
+                db.SaveChanges();
+            }
+        }
+        public void UpdateEmpolyeeImage(Employee e)
+        {
+            Employee emp = db.Employees.Where(temp => temp.EmployeeID == e.EmployeeID).FirstOrDefault();
+            if (emp != null)
+            {
+                emp.UserImg = e.UserImg;
                 db.SaveChanges();
             }
         }
