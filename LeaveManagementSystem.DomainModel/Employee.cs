@@ -18,5 +18,9 @@ namespace LeaveManagementSystem.DomainModel
         public string Address { get; set; }
         public string Phone { get; set; }
         public string UserImg { get; set; }
+        public int LeaveID { get; set; }
+   
+        [ForeignKey("LeaveID")]
+        public virtual List<Leave> Leaves { get; set; }  
     }
 }

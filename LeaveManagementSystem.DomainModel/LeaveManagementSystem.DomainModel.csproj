@@ -91,6 +91,7 @@
     <Compile Include="Identity\ApplicationUser.cs" />
     <Compile Include="Identity\ApplicationUserManager.cs" />
     <Compile Include="Identity\ApplicationUserStore.cs" />
+    <Compile Include="Leave.cs" />
     <Compile Include="LeaveManagementDatabaseDbContext.cs" />
     <Compile Include="Migrations\202010211117546_Initial.cs" />
     <Compile Include="Migrations\202010211117546_Initial.designer.cs">
@@ -99,6 +100,14 @@
     <Compile Include="Migrations\202010220932036_UserImg.cs" />
     <Compile Include="Migrations\202010220932036_UserImg.designer.cs">
       <DependentUpon>202010220932036_UserImg.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202010271027533_LeavesTable.cs" />
+    <Compile Include="Migrations\202010271027533_LeavesTable.designer.cs">
+      <DependentUpon>202010271027533_LeavesTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202010271338104_LeavesAddedToDB.cs" />
+    <Compile Include="Migrations\202010271338104_LeavesAddedToDB.designer.cs">
+      <DependentUpon>202010271338104_LeavesAddedToDB.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -116,6 +125,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202010220932036_UserImg.resx">
       <DependentUpon>202010220932036_UserImg.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202010271027533_LeavesTable.resx">
+      <DependentUpon>202010271027533_LeavesTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202010271338104_LeavesAddedToDB.resx">
+      <DependentUpon>202010271338104_LeavesAddedToDB.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -43,11 +43,14 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="EmployeeViewModel.cs" />
+    <Compile Include="LeaveViewModel.cs" />
     <Compile Include="LoginViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RegisterViewModel.cs" />
+    <Compile Include="RequestLeaveViewModel.cs" />
     <Compile Include="UpdateEmployeeViewModel.cs" />
     <Compile Include="UpdateImageViewModel.cs" />
+    <Compile Include="UpdateLeaveStatusViewModel.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

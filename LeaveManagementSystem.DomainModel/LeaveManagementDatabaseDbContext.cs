@@ -10,5 +10,6 @@ namespace LeaveManagementSystem.DomainModel
     public class LeaveManagementDatabaseDbContext : DbContext
     {
         public DbSet<Employee> Employees { get; set; }
+        public DbSet<Leave> Leaves { get; set; }
     }
 }
