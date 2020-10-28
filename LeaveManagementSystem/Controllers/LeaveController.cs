@@ -1,4 +1,5 @@
 ﻿using LeaveManagementSystem.DomainModel.Identity;
+using LeaveManagementSystem.ServiceLayer;
 using Microsoft.AspNet.Identity;
 using System;
 using System.Collections.Generic;
@@ -10,6 +11,11 @@ namespace LeaveManagementSystem.Controllers
 {
     public class LeaveController : Controller
     {
+        ILeaveService ls;
+        public LeaveController(ILeaveService ls)
+        {
+            this.ls = ls;
+        }
         // GET: Leave
         public ActionResult LeaveRequest()
         {
