@@ -95,24 +95,23 @@
                 item.text("Enter valid Email");
             }
             else {
-                //$.ajax({
-                //    url: "/api/account?email=" + this.value, type: "GET", success:
-                //        function (response) {
-                //            if (response == "Not Found") {
-                //                item.text("");
-                //            }
-                //            else {
-                //                item.text("Email already registered");
-                //            }
-                //        },
-                //    error: function () {
-                //        item.text("Error occurred");
-                //    }
-                //});
+                $.ajax({
+                    url: "/api/account?email=" + this.value, type: "GET", success:
+                        function (response) {
+                            if (response == "Not Found") {
+                                item.text("");
+                            }
+                            else {
+                                item.text("Email already registered");
+                            }
+                        },
+                    error: function () {
+                        item.text("Error occurred");
+                    }
+                });
                 //$.get("/api/account?email="+this.value, function (data) {
                 //    alert("Data Loaded: " + data);
                 //});
-                item.text("");
             }
         });
     });

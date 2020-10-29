@@ -15,8 +15,13 @@ namespace LeaveManagementSystem.ApiControllers
         {
             this.es = es;
         }
-        public string Get(string Email)
+        public AccountController()
         {
+
+        }
+        [HttpGet]
+        public string Get(string Email)
+           {
             if (this.es.GetEmployeeByEmail(Email) != null)
             {
                 return "Found";
